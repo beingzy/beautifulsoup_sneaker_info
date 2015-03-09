@@ -6,13 +6,10 @@ Date: Mar/08/2015
 """
 from BeautifulSoup import BeautifulSoup
 import urllib2
+import datetime
+import boto
 
 import pandas as pd
-
-nike_running_shoes_webpage = urllib2.urlopen("http://store.nike.com/us/en_us/pw/mens-running-shoes/7puZbrkZ8yz?ipp=71")
-soup = soup(nike_running_shoes_webpage)
-
-all_items = soup.findAll("div", attrs = {"class": "grid-item-info"})
 
 def product_info_parser(item):
 	"""
@@ -44,8 +41,15 @@ def product_info_parser(item):
 	 		   "ratings": ratings}
 	return profile
 
+## ##############################
+## collecting webpage information 
+nike_running_shoes_webpage = urllib2.urlopen("http://store.nike.com/us/en_us/pw/mens-running-shoes/7puZbrkZ8yz?ipp=71")
+soup = BeautifulSoup(nike_running_shoes_webpage)
+all_items = soup.findAll("div", attrs = {"class": "grid-item-info"})
+run_datetime_str = datetime.datetime.now().strftime("%B/%d/%Y %I:%M%p")
 profiles = []
 for i in all_items:
 	profiles.append(product_info_parser(i))
 
 df = pd.DataFrame(profiles)
+final_output = {"datetime": run_datetime_str, "data": df.as_matrix(), "columns": df.columns}
