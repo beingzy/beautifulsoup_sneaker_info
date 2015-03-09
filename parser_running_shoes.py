@@ -49,7 +49,7 @@ all_items = soup.findAll("div", attrs = {"class": "grid-item-info"})
 run_datetime_str = datetime.datetime.now().strftime("%B/%d/%Y %I:%M%p")
 profiles = []
 for i in all_items:
-	profiles.append(product_info_parser(i))
+    profiles.append(product_info_parser(i))
 
 df = pd.DataFrame(profiles)
 final_output = {"datetime": run_datetime_str, "data": df.as_matrix(), "columns": df.columns}
