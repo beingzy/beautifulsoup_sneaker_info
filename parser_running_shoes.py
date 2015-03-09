@@ -17,7 +17,7 @@ def product_info_parser(item):
     components = []
     for i in item.contents:
         if i != u"\n":
-            omponents.append(i)
+            components.append(i)
 
     try:
 	    ratings = components[0].findAll("div")[1]['alt']
