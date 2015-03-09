@@ -12,34 +12,34 @@ import boto
 import pandas as pd
 
 def product_info_parser(item):
-	"""
-	"""
-	components = []
-	for i in item.contents:
+    """
+    """
+    components = []
+    for i in item.contents:
 	    if i != u"\n":
-	    	components.append(i)
+	        components.append(i)
 
-	try:
+    try:
 	    ratings = components[0].findAll("div")[1]['alt']
-	except:
-		ratings = None
-	try:
+    except:
+	    ratings = None
+    try:
 	    n_colorways = int( components[0].div.string.split(" ")[0] )
-	except:
-		n_colorways = None
+    except:
+	    n_colorways = None
 
-	product_info = components[1].findAll("p")
-	prod_name = str(product_info[0].string)
-	prod_category = str(product_info[1].string)
+    product_info = components[1].findAll("p")
+    prod_name = str(product_info[0].string)
+    prod_category = str(product_info[1].string)
 
-	price_info = components[2].findAll(attrs={"class":"bulk-pricing"})
-	retail_price = str(price_info[0]['data-obp'])
-	bulk_price = str(price_info[0]['data-bp'])
+    price_info = components[2].findAll(attrs={"class":"bulk-pricing"})
+    retail_price = str(price_info[0]['data-obp'])
+    bulk_price = str(price_info[0]['data-bp'])
 
-	profile = {"name": prod_name, "category": prod_category, "num_colors": n_colorways,
+    profile = {"name": prod_name, "category": prod_category, "num_colors": n_colorways,
 	 		   "retail_price": retail_price, "bulk_price": bulk_price, 
 	 		   "ratings": ratings}
-	return profile
+    return profile
 
 ## ##############################
 ## collecting webpage information 
