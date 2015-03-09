@@ -16,17 +16,17 @@ def product_info_parser(item):
     """
     components = []
     for i in item.contents:
-	    if i != u"\n":
-	        components.append(i)
+        if i != u"\n":
+            omponents.append(i)
 
     try:
 	    ratings = components[0].findAll("div")[1]['alt']
     except:
-	    ratings = None
+        ratings = None
     try:
-	    n_colorways = int( components[0].div.string.split(" ")[0] )
+        n_colorways = int( components[0].div.string.split(" ")[0] )
     except:
-	    n_colorways = None
+        n_colorways = None
 
     product_info = components[1].findAll("p")
     prod_name = str(product_info[0].string)
